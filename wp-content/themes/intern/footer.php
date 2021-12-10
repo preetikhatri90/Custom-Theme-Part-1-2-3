@@ -1,4 +1,4 @@
-        <footer id="footer" class="hoc clear"> 
+<footer id="footer" class="hoc clear"> 
             <!-- ################################################################################################ -->
             <div class="one_quarter first">
             <h1 class="logoname"><a href="index.html">Chill<span>a</span>id</a></h1>
@@ -10,7 +10,7 @@
             <ul class="faico clear">
                 <li><a class="faicon-facebook" href="<?php echo $socialDatas['facebook'];?>"><i class="fab fa-facebook"></i></a></li>
                 <?php
-                foreach($socialDatas as $socialKey=>$socialData):?>
+                foreach((array)$socialDatas as $socialKey=>$socialData):?>
                     <li>
                         <a class="faicon-<?php echo $socialKey;?>" href="<?php echo $socialData;?>"><i class="fab fa-<?php echo $socialKey;?>"></i></a>
                     </li>
@@ -72,7 +72,7 @@
     <div class="wrapper row5">
     <div id="copyright" class="hoc clear"> 
         <!-- ################################################################################################ -->
-        <p class="fl_left">Copyright &copy; 2021 - All Rights Reserved - <a href="#">Domain Name</a></p>
+        <p class="fl_left"><?php echo get_theme_mod('intern-footer-copyright-frontline'); ?> <a href="#"><?php echo get_theme_mod('intern-footer-copyright-domain'); ?></a></p>
         <p class="fl_right">Template For <a target="_blank" href="#!" title="Free Website Templates">Intern</a></p>
         <!-- ################################################################################################ -->
     </div>

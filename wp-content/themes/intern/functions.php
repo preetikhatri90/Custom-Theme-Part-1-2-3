@@ -101,36 +101,161 @@ add_action( 'wp_enqueue_scripts', 'interns_scripts' );
 /**
  * create custom post type
  */
-function interns_post_type_init()
-{
-    register_post_type(
-        'news',
-        array(
-            'labels' => array(
-                'name' => __('News', 'intern'),
-                'singular_name' => __('News', 'intern'),
-            ),
-            'public' => true,
-            'publicly_queryable' => true,
-            'has_archive' => false,
-            'show_ui' => true,
-            'show_in_rest' => true,
-            // 'hierarchical' => true,
-            'menu_icon' => 'dashicons-welcome-write-blog',
-            'rewrite' => array( 'slug' => 'news' ),
-            'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt' )
-        )
-    );
-}
 
+
+
+
+
+
+
+function interns_post_type_init(){
+    $labels = array(
+        'name' => _x('types', 'taxonomy general name'),
+        'singular_name' => _x('type', 'taxonomy singular name'),
+        'add_new' => __('Add type'),
+        'add_new_item' => __('Add New type'),
+        'edit_item' => __('Edit type'),
+        'new_item' => __('New type'),
+        'all_items' => __('All type'),
+        'view_item' => __('View type'),
+        'search_items' => __('Search type'),
+        'not_found' => __('No type found'),
+        'not_found_in_trash' => __('No type on trash'),
+        'parent_item_colon' => '',
+        'menu_name' => __('News')
+    );
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'types'),
+        'capability_type' => 'page',
+        'has_archive' => true,
+        'hierarchical' => true,
+        'menu_position' => null,
+        'menu_icon' => 'dashicons-welcome-write-blog',
+        'rewrite' => array( 'slug' => 'news' ),
+        'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt' )
+    );
+    $labels = array(
+        'name' => __('types'),
+        'singular_name' => __('type'),
+        'search_items' => __('Search'),
+        'popular_items' => __('More Used'),
+        'all_items' => __('All type'),
+        'parent_item' => null,
+        'parent_item_colon' => null,
+        'edit_item' => __('Add new'),
+        'update_item' => __('Update'),
+        'add_new_item' => __('Add new type'),
+        'new_item_name' => __('New')
+    );
+    register_taxonomy('types', array('news'), array(
+		'hierarchical' => true,
+		'labels' => $labels,
+		'singular_label' => 'type_category',
+		'all_items' => 'types',
+		'query_var' => true,
+        'show_admin_column' => true,
+		'rewrite' => array('slug' => 'types'))
+    );
+    register_post_type('news', $args);
+    // flush_rewrite_rules();
+}
 add_action('init', 'interns_post_type_init');
 
+
+
+
+
+// function interns_post_type_init()
+// {
+//     register_post_type(
+//         'news',
+//         array(
+//             'labels' => array(
+//                 'name' => __('News', 'intern'),
+//                 'singular_name' => __('News', 'intern'),
+//             ),
+//             'public' => true,
+//             'publicly_queryable' => true,
+//             'has_archive' => true,
+//             'show_ui' => true,
+//             'show_in_rest' => true,
+//             // 'hierarchical' => true,
+//             'menu_icon' => 'dashicons-welcome-write-blog',
+//             'rewrite' => array( 'slug' => 'news' ),
+//             'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt' )
+//         )
+//     );
+// }
+
+// add_action('init', 'interns_post_type_init');
+
+// add_action( 'init', 'create_types_hierarchical_taxonomy', 0 );
+ 
+// //create a custom taxonomy name it types for your posts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+// function create_types_hierarchical_taxonomy() {
+ 
+ 
+//   $labels = array(
+//     'name' => _x( 'types', 'taxonomy general name' ),
+//     'singular_name' => _x( 'type', 'taxonomy singular name' ),
+//     'search_items' =>  __( 'Search type' ),
+//     'all_items' => __( 'All type' ),
+//     'parent_item' => __( 'Parent type' ),
+//     'parent_item_colon' => __( 'Parent type:' ),
+//     'edit_item' => __( 'Edit type' ), 
+//     'update_item' => __( 'Update type' ),
+//     'add_new_item' => __( 'Add New type' ),
+//     'new_item_name' => __( 'New type Name' ),
+//     'menu_name' => __( 'types' ),
+//   );    
+ 
+//     // Now register the taxonomy
+//   register_taxonomy('subjects',array('news'), array(
+//     'hierarchical' => true,
+//     'labels' => $labels,
+//     'show_ui' => true,
+//     'show_in_rest' => true,
+//     'show_admin_column' => true,
+//     'query_var' => true,
+//     'rewrite' => array( 'slug' => 'type' ),
+//   ));
+ 
+// }
 /**
  * Add customizer
  */
 
 require get_template_directory() . '/classes/class-intern-customize.php';
 new Intern_Customize();
+
+
+
+/**
+ * Add copyright customizer
+ */
+
+require get_template_directory() . '/classes/copyright-footer.php';
 
 
 /**
